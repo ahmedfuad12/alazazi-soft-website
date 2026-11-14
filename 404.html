@@ -1,1 +1,55 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>404 - الصفحة غير موجودة | ALAZAZI SOFT</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#060d27;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;padding:24px}.box{max-width:480px;background:#0d1b3e;padding:40px 32px;border-radius:16px;border:1px solid #1a2c5a;box-shadow:0 20px 40px rgba(0,0,0,0.5)}h1{font-size:72px;margin:0 0 12px;color:#00d2ff;letter-spacing:-2px}p{font-size:16px;color:#94a3b8;line-height:1.6;margin:0 0 24px}.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.btn{padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;transition:all .2s}.btn-p{background:#00d2ff;color:#060d27}.btn-p:hover{background:#38bdf8}.btn-s{background:#1e293b;color:#f8fafc;border:1px solid #334155}.btn-s:hover{background:#334155}</style></head><body><div class="box"><h1>404</h1><p>الصفحة التي تبحث عنها غير موجودة أو تم نقلها.<br><span dir="ltr">The page you are looking for does not exist.</span></p><div class="actions"><a id="ar-link" class="btn btn-p" href="ar/index.html">الرئيسية بالعربية</a><a id="en-link" class="btn btn-s" href="en/index.html" dir="ltr">English Home</a></div></div><script>(function(){var s=location.pathname.split('/');var repo=(s.length>1&&s[1]&&location.hostname.indexOf('github.io')!==-1)?('/'+s[1]+'/'):'/';var a=document.getElementById('ar-link');var e=document.getElementById('en-link');if(a)a.href=repo+'ar/index.html';if(e)e.href=repo+'en/index.html';})();</script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>الصفحة غير موجودة 404 — العزعزي سوفت | ALAZAZI SOFT</title>
+  <link rel="icon" href="assets/brand/logo-original.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 30px;
+    }
+    .error-box {
+      max-width: 520px;
+      padding: 50px 36px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(14, 26, 68, 0.9) 0%, rgba(6, 12, 34, 0.98) 100%);
+      border: 1px solid rgba(0, 210, 255, 0.35);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 210, 255, 0.2);
+    }
+    .error-code {
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #00d2ff, #0070f3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-box">
+    <div class="brand-logo-frame" style="margin-bottom: 24px; display: inline-flex;">
+      <img src="assets/brand/logo-original.png" alt="العزعزي سوفت" class="brand-logo-img">
+    </div>
+    <div class="error-code">404</div>
+    <h1 style="font-size: 1.6rem; margin-bottom: 12px; color: #fff;">الصفحة المطلوبة غير موجودة</h1>
+    <p style="color: #94a3b8; margin-bottom: 30px;">
+      قد تكون الصفحة انتقلت أو أن الرابط غير صحيح. يمكنك العودة إلى الصفحة الرئيسية.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+      <a href="ar/index.html" class="btn btn-primary">الرئيسية (العربية)</a>
+      <a href="en/index.html" class="btn btn-secondary">Home (English)</a>
+    </div>
+  </div>
+</body>
+</html>
