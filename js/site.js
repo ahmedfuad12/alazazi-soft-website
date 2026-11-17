@@ -310,12 +310,12 @@ window.ALAZAZI = window.ALAZAZI || {
         window.setTimeout(function () {
           if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
           window.ALAZAZI.completeIntro();
-        }, 950);
+        }, 520);
       }
 
       function animateIntro(now) {
         if (!introStart) introStart = now;
-        var raw = Math.min(1, (now - introStart) / 1950);
+        var raw = Math.min(1, (now - introStart) / 900);
         var eased = 1 - Math.pow(1 - raw, 3);
         if (fillNode) fillNode.style.width = (eased * 100).toFixed(1) + '%';
         if (percentNode) percentNode.textContent = Math.round(eased * 100) + '%';
@@ -324,11 +324,11 @@ window.ALAZAZI = window.ALAZAZI || {
       }
 
       introRaf = window.requestAnimationFrame(animateIntro);
-      window.setTimeout(finishIntro, 2600);
+      window.setTimeout(finishIntro, 1150);
       window.setTimeout(function () {
         try { window.cancelAnimationFrame(introRaf); } catch (e) {}
         window.ALAZAZI.completeIntro();
-      }, 6200);
+      }, 2600);
     } else {
       window.ALAZAZI.completeIntro();
     }
@@ -345,7 +345,7 @@ window.ALAZAZI = window.ALAZAZI || {
       node.style.setProperty('--d', (0.08 * i).toFixed(2) + 's');
     });
     window.ALAZAZI.onIntroDone(function () { document.body.classList.add('is-ready'); });
-    window.setTimeout(function () { document.body.classList.add('is-ready'); }, 6500);
+    window.setTimeout(function () { document.body.classList.add('is-ready'); }, 2600);
 
     var cue = make('div', 'hero-scroll-cue', isEn ? 'Scroll' : 'اسحب للأسفل');
     cue.setAttribute('aria-hidden', 'true');

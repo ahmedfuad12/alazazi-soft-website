@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>الصفحة غير موجودة 404 — العزعزي سوفت | ALAZAZI SOFT</title>
   <link rel="icon" href="assets/brand/logo-original.png" type="image/png">
+  <script>
+    try {
+      var t = localStorage.getItem('alazazi_theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <style>
     body {
