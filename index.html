@@ -5,9 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>العزعزي سوفت | ALAZAZI SOFT — حلول رقمية تُبنى لتتطور</title>
   <meta name="description" content="العزعزي سوفت | ALAZAZI SOFT: حلول برمجية ومنتجات رقمية عملية تجمع بين جودة البرمجة ووضوح التصميم.">
+
+  <!--
+    Entrance bootstrap.
+    Kept at the very top of <head>, before any stylesheet: a slow or blocked CSS
+    request (including the Google Fonts @import in css/style.css) must never be
+    able to delay the transition to the homepage.
+  -->
+  <script>
+    (function () {
+      'use strict';
+
+      var booted = false;
+      var targetUrl = null;
+
+      function preferredLang() {
+        try {
+          var saved = localStorage.getItem('alazazi_lang');
+          if (saved === 'en' || saved === 'ar') return saved;
+        } catch (e) {}
+        try {
+          var browser = (navigator.language || navigator.userLanguage || 'ar').toLowerCase();
+          if (browser.slice(0, 2) === 'en') return 'en';
+        } catch (e) {}
+        return 'ar';
+      }
+
+      function buildTarget() {
+        var path = '';
+        try { path = location.pathname || '/'; } catch (e) { return './ar/index.html'; }
+
+        var base = path.replace(/\/index\.html$/, '');
+        if (!base) base = '/';
+        if (base.charAt(base.length - 1) !== '/') base += '/';
+        if (location.protocol === 'file:' && base.charAt(0) !== '/') base = '/' + base;
+
+        return base + preferredLang() + '/index.html';
+      }
+
+      function stillOnSplash() {
+        try {
+          return !/(^|\/)(ar|en)\/index\.html$/.test(location.pathname || '');
+        } catch (e) {
+          return true;
+        }
+      }
+
+      function navigate(url) {
+        var attempts = [
+          function () { location.replace(url); },
+          function () { location.assign(url); },
+          function () { window.location.href = url; }
+        ];
+        for (var i = 0; i < attempts.length; i += 1) {
+          try { attempts[i](); return true; } catch (e) {}
+        }
+        return false;
+      }
+
+      function boot() {
+        if (booted || !stillOnSplash()) return;
+        booted = true;
+        targetUrl = targetUrl || buildTarget();
+
+        navigate(targetUrl);
+
+        // Failsafe: if a browser extension, sandbox or policy swallowed the
+        // navigation, retry with the universal Arabic target, then use the
+        // visible language link as the final human-visible exit.
+        setTimeout(function () {
+          if (!stillOnSplash()) return;
+          navigate(targetUrl.replace('/en/index.html', '/ar/index.html'));
+
+          setTimeout(function () {
+            if (!stillOnSplash()) return;
+            var link = document.getElementById('splash-fallback-ar');
+            if (link && typeof link.click === 'function') link.click();
+          }, 1200);
+        }, 2500);
+      }
+
+      boot();
+      if (document.addEventListener) document.addEventListener('DOMContentLoaded', boot, { once: true });
+      window.addEventListener('load', boot, { once: true });
+    })();
+  </script>
+
   <link rel="icon" href="assets/brand/logo-original.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
   <meta http-equiv="refresh" content="1;url=ar/index.html">
+  <script>
+    try {
+      var t = localStorage.getItem('alazazi_theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
   <link rel="stylesheet" href="css/style.css">
   <style>
     body {
@@ -65,28 +157,35 @@
       color: #94a3b8;
       margin-bottom: 30px;
     }
+    .splash-progress {
+      width: 100%;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(0, 210, 255, 0.12);
+      overflow: hidden;
+      margin: -16px 0 26px;
+    }
+    .splash-progress-fill {
+      display: block;
+      width: 40%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, transparent, #00d2ff, #38e1ff, transparent);
+      animation: splashSweep 1.15s ease-in-out infinite;
+    }
+    @keyframes splashSweep {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(350%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .splash-progress-fill { animation: none; width: 100%; opacity: 0.55; }
+    }
     .splash-langs {
       display: flex;
       justify-content: center;
       gap: 12px;
     }
   </style>
-  <script>
-    (function () {
-      var lang = 'ar';
-      try {
-        lang = localStorage.getItem('alazazi_lang') || (navigator.language || 'ar').slice(0, 2);
-      } catch (e) {}
-      var target = (lang === 'en' ? 'en' : 'ar') + '/index.html';
-      var path = location.pathname;
-      if (path.endsWith('/index.html')) {
-        path = path.slice(0, -10);
-      } else if (!path.endsWith('/')) {
-        path = path + '/';
-      }
-      location.replace(path + target);
-    })();
-  </script>
 </head>
 <body>
   <div class="splash-card">
@@ -96,8 +195,9 @@
     <div class="splash-title">العزعزي سوفت</div>
     <div class="splash-subtitle">ALAZAZI SOFT</div>
     <p class="splash-loading">جارٍ توجيهك إلى النسخة المناسبة...</p>
+    <div class="splash-progress" aria-hidden="true"><span class="splash-progress-fill"></span></div>
     <div class="splash-langs">
-      <a href="ar/index.html" class="btn btn-primary btn-sm">العربية</a>
+      <a id="splash-fallback-ar" href="ar/index.html" class="btn btn-primary btn-sm">العربية</a>
       <a href="en/index.html" class="btn btn-secondary btn-sm">English</a>
     </div>
   </div>
