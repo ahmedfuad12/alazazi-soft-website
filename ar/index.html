@@ -17,6 +17,30 @@
   <script src="../js/site.js" defer></script>
 </head>
 <body>
+  <!-- Ultra Experience: Preloader -->
+  <div id="site-preloader" class="site-preloader" aria-hidden="true">
+    <div class="preloader-content">
+      <div class="preloader-emblem">
+        <svg viewBox="0 0 64 64" class="preloader-svg">
+          <rect class="pre-frame" pathLength="1" x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#00d2ff" stroke-width="2.5" />
+          <path class="pre-a" pathLength="1" fill="none" stroke="#38e1ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M32 10h8l16 44h-10l-4-11H30l-4 11H12z" />
+          <path class="pre-inner" pathLength="1" fill="none" stroke="#00d2ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M32 24l-5 13h10z" />
+        </svg>
+        <div class="preloader-glow"></div>
+      </div>
+      <div class="preloader-text">
+        <div class="pre-title">ALAZAZI SOFT</div>
+        <div class="pre-sub">العزعزي سوفت · هندسة الحلول الرقمية</div>
+      </div>
+      <div class="preloader-bar">
+        <div class="preloader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reading Scroll Progress Bar -->
+  <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+
   <a class="skip-link" href="#main-content">الانتقال إلى المحتوى الرئيسي</a>
 
   <!-- Header -->
@@ -59,6 +83,9 @@
   <main id="main-content">
     <!-- Hero Section -->
     <section class="hero-section">
+    <!-- Interactive Constellation Network Canvas -->
+    <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+
       <div class="container">
         <div class="hero-grid">
           <div class="hero-content">
@@ -69,6 +96,11 @@
             <h1 class="hero-title">
               نحوّل الأفكار إلى حلول رقمية <span class="highlight">تُصنع لتعمل، وتُبنى لتتطور.</span>
             </h1>
+                        <div class="hero-typewriter-wrap">
+              <span class="typewriter-prefix">نبتكر ونصنع:</span>
+              <span class="hero-typewriter" id="hero-typewriter"></span>
+              <span class="typewriter-cursor"></span>
+            </div>
             <p class="hero-desc">
               في العزعزي سوفت، نعمل على تحويل الأفكار والاحتياجات إلى منتجات وحلول تقنية عملية، تجمع بين جودة البرمجة، ووضوح التصميم، وسهولة الاستخدام.
               <br><br>
@@ -82,20 +114,66 @@
           </div>
 
           <div class="hero-visual">
-            <div class="hero-visual-card">
-              <div class="hero-visual-badge">
-                <img src="../assets/projects/alaya/alaya-icon-128.png" alt="أيقونة تطبيق عليّا">
-                <div class="hero-visual-meta">
-                  <span class="hv-title">تطبيق ALAYA | عليّا</span>
-                  <span class="hv-sub">إدارة الديون والتمويل بسهولة</span>
+            <div class="hero-terminal-window card-interactive">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </div>
+                <div class="terminal-title">alazazi-soft // tech-hub</div>
+                <div class="terminal-status">
+                  <span class="status-pulse"></span>
+                  <span class="status-text">ONLINE</span>
                 </div>
               </div>
-              <div class="hero-visual-preview">
-                <div class="hero-phone-mock" data-preview-src="../assets/projects/alaya/alaya-screen-dashboard.png" data-preview-alt="واجهة تطبيق عليّا الرئيسية">
-                  <img src="../assets/projects/alaya/alaya-screen-dashboard.png" alt="واجهة تطبيق عليّا - لوحة المتابعة">
+
+              <div class="terminal-tabs">
+                <button type="button" class="term-tab active" data-tab="showcase">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+                  <span>معاينة تطبيق عليّا</span>
+                </button>
+                <button type="button" class="term-tab" data-tab="console">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                  <span>الوحدة التقنية التفاعلية</span>
+                </button>
+              </div>
+
+              <div class="term-pane active" id="pane-showcase">
+                <div class="hero-visual-badge">
+                  <img src="../assets/projects/alaya/alaya-icon-128.png" alt="أيقونة تطبيق عليّا">
+                  <div class="hero-visual-meta">
+                    <span class="hv-title">تطبيق ALAYA | عليّا</span>
+                    <span class="hv-sub">إدارة الديون والتمويل بسهولة وأمان</span>
+                  </div>
                 </div>
-                <div class="hero-phone-mock" data-preview-src="../assets/projects/alaya/alaya-screen-menu.png" data-preview-alt="قائمة تطبيق عليّا">
-                  <img src="../assets/projects/alaya/alaya-screen-menu.png" alt="واجهة تطبيق عليّا - القائمة الجانبية">
+                <div class="hero-visual-preview">
+                  <div class="hero-phone-mock" data-preview-src="../assets/projects/alaya/alaya-screen-dashboard.png" data-preview-alt="واجهة تطبيق عليّا الرئيسية">
+                    <img src="../assets/projects/alaya/alaya-screen-dashboard.png" alt="واجهة تطبيق عليّا - لوحة المتابعة">
+                  </div>
+                  <div class="hero-phone-mock" data-preview-src="../assets/projects/alaya/alaya-screen-menu.png" data-preview-alt="قائمة تطبيق عليّا">
+                    <img src="../assets/projects/alaya/alaya-screen-menu.png" alt="واجهة تطبيق عليّا - القائمة الجانبية">
+                  </div>
+                </div>
+                <div class="showcase-footer">
+                  <span class="badge-mini">نظام Android</span>
+                  <span class="badge-mini">أمان وتشفير كامل</span>
+                  <span class="badge-mini">أداء فائق</span>
+                </div>
+              </div>
+
+              <div class="term-pane" id="pane-console">
+                <div class="console-body" id="console-output">
+                  <div class="c-line c-dim">/* ALAZAZI SOFT Engineering Hub v2.6 */</div>
+                  <div class="c-line c-cyan">❯ system.status()</div>
+                  <div class="c-line c-text">الأنظمة السحابية وتطبيقات الهواتف تعمل بكامل طاقتها واستقرارها بنسبة 99.9%.</div>
+                </div>
+                <div class="console-chips">
+                  <button type="button" class="c-chip" data-cmd="services">الخدمات</button>
+                  <button type="button" class="c-chip" data-cmd="stack">التقنيات</button>
+                  <button type="button" class="c-chip" data-cmd="security">الأمان</button>
+                  <button type="button" class="c-chip" data-cmd="whatsapp">طلب مشروع</button>
+                  <button type="button" class="c-chip" data-cmd="clear">مسح</button>
                 </div>
               </div>
             </div>
@@ -108,7 +186,7 @@
     <div class="value-strip">
       <div class="container">
         <div class="value-grid">
-          <div class="value-item">
+          <div class="value-item card-interactive">
             <div class="value-icon">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
@@ -117,7 +195,7 @@
               <p>نحدد الهدف والمشكلة الفعلية بدقة قبل اختيار وبناء الحل التقني.</p>
             </div>
           </div>
-          <div class="value-item">
+          <div class="value-item card-interactive">
             <div class="value-icon">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
             </div>
@@ -126,7 +204,7 @@
               <p>بنية برمجية متينة تجمع بين الأداء العالي والاستقرار وقابلية التوسع.</p>
             </div>
           </div>
-          <div class="value-item">
+          <div class="value-item card-interactive">
             <div class="value-icon">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
             </div>
@@ -135,6 +213,31 @@
               <p>واجهات مصممة بعناية تضع المستخدم وسهولة الاستخدام في قلب المنتج.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Continuous Architecture & Tech Ticker -->
+    <div class="tech-ticker-wrap" aria-hidden="true">
+      <div class="tech-ticker">
+        <div class="ticker-track">
+          <span><i class="t-icon">&lt;/&gt;</i> Android Studio &amp; Kotlin</span>
+          <span><i class="t-icon">◈</i> Cloud Architecture</span>
+          <span><i class="t-icon">&lt;/&gt;</i> RESTful APIs &amp; Microservices</span>
+          <span><i class="t-icon">◈</i> High Security &amp; Data Encryption</span>
+          <span><i class="t-icon">&lt;/&gt;</i> MySQL &amp; Scalable Databases</span>
+          <span><i class="t-icon">◈</i> Modern UI/UX Engineering</span>
+          <span><i class="t-icon">&lt;/&gt;</i> Cross-Platform Performance</span>
+          <span><i class="t-icon">◈</i> Clean Code &amp; Continuous Deployment</span>
+          <span><i class="t-icon">&lt;/&gt;</i> Android Studio &amp; Kotlin</span>
+          <span><i class="t-icon">◈</i> Cloud Architecture</span>
+          <span><i class="t-icon">&lt;/&gt;</i> RESTful APIs &amp; Microservices</span>
+          <span><i class="t-icon">◈</i> High Security &amp; Data Encryption</span>
+          <span><i class="t-icon">&lt;/&gt;</i> MySQL &amp; Scalable Databases</span>
+          <span><i class="t-icon">◈</i> Modern UI/UX Engineering</span>
+          <span><i class="t-icon">&lt;/&gt;</i> Cross-Platform Performance</span>
+          <span><i class="t-icon">◈</i> Clean Code &amp; Continuous Deployment</span>
         </div>
       </div>
     </div>
@@ -218,7 +321,7 @@
 
         <div class="services-grid">
           <!-- Service 1 -->
-          <div class="service-card">
+          <div class="service-card card-interactive">
             <div class="service-icon-box">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
             </div>
@@ -229,7 +332,7 @@
           </div>
 
           <!-- Service 2 -->
-          <div class="service-card">
+          <div class="service-card card-interactive">
             <div class="service-icon-box">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
             </div>
@@ -240,7 +343,7 @@
           </div>
 
           <!-- Service 3 -->
-          <div class="service-card">
+          <div class="service-card card-interactive">
             <div class="service-icon-box">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
             </div>
@@ -251,7 +354,7 @@
           </div>
 
           <!-- Service 4 -->
-          <div class="service-card">
+          <div class="service-card card-interactive">
             <div class="service-icon-box">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
             </div>
@@ -262,7 +365,7 @@
           </div>
 
           <!-- Service 5 -->
-          <div class="service-card">
+          <div class="service-card card-interactive">
             <div class="service-icon-box">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
             </div>
@@ -273,7 +376,7 @@
           </div>
 
           <!-- Service 6 -->
-          <div class="service-card">
+          <div class="service-card card-interactive">
             <div class="service-icon-box">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             </div>
@@ -284,7 +387,7 @@
           </div>
 
           <!-- Service 7 -->
-          <div class="service-card">
+          <div class="service-card card-interactive">
             <div class="service-icon-box">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
@@ -667,5 +770,15 @@
     <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.17 8.17 0 012.41 5.82c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24h-.18zm4.52 11.64c-.25-.12-1.47-.72-1.7-.8-.23-.09-.39-.12-.56.12-.17.25-.64.8-.79.97-.14.17-.29.2-.54.07-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.89 2.38 1.01 2.54c.12.17 1.74 2.66 4.22 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3z"/></svg>
     <span class="floating-whatsapp-text">تواصل عبر واتساب</span>
   </a>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="العودة لأعلى الصفحة" title="العودة لأعلى">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <!-- Site Toast Notification -->
+  <div id="site-toast" class="site-toast" role="alert" aria-live="polite"></div>
 </body>
 </html>
