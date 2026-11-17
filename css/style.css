@@ -1725,7 +1725,7 @@ html[dir="rtl"] .scroll-progress {
     #040818;
   overflow: hidden;
   transition: opacity 0.75s var(--ease-expo), visibility 0.75s;
-  animation: introSafety 0.6s 4.6s forwards;
+  animation: introSafety 0.6s 4.2s forwards;
 }
 .intro-overlay.is-hidden {
   opacity: 0;
@@ -2582,7 +2582,7 @@ body > footer {
   z-index: 9500;
   overflow: hidden;
   background: #040818;
-  animation: introFailsafe 0.35s 2.6s forwards;
+  animation: introFailsafe 0.5s 4s forwards;
 }
 
 @keyframes introFailsafe {
@@ -2673,8 +2673,13 @@ body > footer {
   fill: none;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: introDraw 0.7s var(--ease-expo) forwards;
+  animation: introDraw 1.05s var(--ease-expo) forwards;
 }
+
+.intro-mark .intro-frame { animation-delay: 0.05s; }
+.intro-mark .intro-arc { animation-delay: 0.22s; }
+.intro-mark .intro-violet { animation-delay: 0.4s; }
+.intro-mark .intro-core-dot { animation-delay: 0.6s; }
 
 .intro-kicker {
   color: var(--cyan-300);
@@ -2683,17 +2688,29 @@ body > footer {
   font-weight: 700;
   letter-spacing: 0.36em;
   text-transform: uppercase;
+  opacity: 0;
+  animation: introIn 0.8s 0.5s var(--ease-expo) forwards;
 }
 
 .intro-name {
   font-size: clamp(1.25rem, 4vw, 1.9rem);
   line-height: 1.4;
+  opacity: 0;
+  animation: introIn 0.9s 0.7s var(--ease-expo) forwards;
 }
 
 .intro-sub {
   color: var(--text-muted);
   font-size: 0.9rem;
   max-width: 34ch;
+  opacity: 0;
+  animation: introIn 0.8s 0.9s var(--ease-expo) forwards;
+}
+
+.intro-progress,
+.intro-meta {
+  opacity: 0;
+  animation: introIn 0.7s 1.1s var(--ease-expo) forwards;
 }
 
 .intro-progress {
@@ -2739,23 +2756,49 @@ body > footer {
   place-items: center;
   background: var(--bg-primary);
   clip-path: inset(0 0 100% 0);
-  transition: clip-path 0.52s var(--ease-expo);
+  transition: clip-path 0.78s var(--ease-expo);
+}
+
+.intro-curtain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 210, 255, 0.16) 0%, transparent 42%),
+    radial-gradient(ellipse at 50% 0%, rgba(124, 108, 255, 0.14), transparent 58%);
+  opacity: 0;
+  transition: opacity 0.7s var(--ease-expo);
 }
 
 html[dir="rtl"] .intro-curtain {
   clip-path: inset(0 100% 0 0);
 }
 
-.intro-overlay.is-leaving .intro-core,
-.intro-overlay.is-leaving .intro-grid,
-.intro-overlay.is-leaving .intro-aura {
+.intro-overlay.is-leaving .intro-core {
   opacity: 0;
-  transform: scale(0.96);
-  transition: opacity 0.3s, transform 0.4s var(--ease-expo);
+  transform: scale(1.04);
+  filter: blur(6px);
+  transition: opacity 0.68s var(--ease-expo), transform 0.9s var(--ease-expo), filter 0.68s var(--ease-expo);
+}
+
+.intro-overlay.is-leaving .intro-grid {
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.7s var(--ease-expo), transform 0.9s var(--ease-expo);
+}
+
+.intro-overlay.is-leaving .intro-aura {
+  opacity: 0.42;
+  transform: scale(1.18);
+  transition: opacity 0.7s var(--ease-expo), transform 0.9s var(--ease-expo);
 }
 
 .intro-overlay.is-leaving .intro-curtain {
   clip-path: inset(0 0 0 0);
+}
+
+.intro-overlay.is-leaving .intro-curtain::after {
+  opacity: 1;
 }
 
 html[dir="rtl"] .intro-overlay.is-leaving .intro-curtain {

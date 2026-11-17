@@ -307,28 +307,32 @@ window.ALAZAZI = window.ALAZAZI || {
       function finishIntro() {
         if (overlay.classList.contains('is-leaving')) return;
         overlay.classList.add('is-leaving');
+        window.ALAZAZI.completeIntro();
         window.setTimeout(function () {
           if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-          window.ALAZAZI.completeIntro();
-        }, 520);
+          window.removeEventListener('keydown', onKeydown);
+        }, 780);
       }
+
+      function onKeydown(event) {
+        if (event.key === 'Escape' || event.key === 'Enter' || event.key === ' ') finishIntro();
+      }
+
+      overlay.addEventListener('click', finishIntro);
+      window.addEventListener('keydown', onKeydown);
 
       function animateIntro(now) {
         if (!introStart) introStart = now;
-        var raw = Math.min(1, (now - introStart) / 900);
-        var eased = 1 - Math.pow(1 - raw, 3);
+        var raw = Math.min(1, (now - introStart) / 1500);
+        var eased = raw < 0.5 ? 4 * raw * raw * raw : 1 - Math.pow(-2 * raw + 2, 3) / 2;
         if (fillNode) fillNode.style.width = (eased * 100).toFixed(1) + '%';
         if (percentNode) percentNode.textContent = Math.round(eased * 100) + '%';
         if (raw < 1) introRaf = window.requestAnimationFrame(animateIntro);
-        else finishIntro();
+        else window.setTimeout(finishIntro, 220);
       }
 
       introRaf = window.requestAnimationFrame(animateIntro);
-      window.setTimeout(finishIntro, 1150);
-      window.setTimeout(function () {
-        try { window.cancelAnimationFrame(introRaf); } catch (e) {}
-        window.ALAZAZI.completeIntro();
-      }, 2600);
+      window.setTimeout(finishIntro, 2800);
     } else {
       window.ALAZAZI.completeIntro();
     }
@@ -345,7 +349,7 @@ window.ALAZAZI = window.ALAZAZI || {
       node.style.setProperty('--d', (0.08 * i).toFixed(2) + 's');
     });
     window.ALAZAZI.onIntroDone(function () { document.body.classList.add('is-ready'); });
-    window.setTimeout(function () { document.body.classList.add('is-ready'); }, 2600);
+    window.setTimeout(function () { document.body.classList.add('is-ready'); }, 3200);
 
     var cue = make('div', 'hero-scroll-cue', isEn ? 'Scroll' : 'اسحب للأسفل');
     cue.setAttribute('aria-hidden', 'true');
