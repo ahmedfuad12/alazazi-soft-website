@@ -13,6 +13,7 @@ window.ALAZAZI = window.ALAZAZI || {
     if (this.introDone) return;
     this.introDone = true;
     document.body.classList.add('go', 'is-ready');
+    document.documentElement.classList.remove('intro-boot');
     this.callbacks.forEach(function (fn) { try { fn(); } catch (e) {} });
     this.callbacks.length = 0;
   },
@@ -266,38 +267,41 @@ window.ALAZAZI = window.ALAZAZI || {
   onScroll();
 
   /* Cinematic entry experience — once per browsing session -------------- */
+  var overlay = document.querySelector('.intro-overlay');
   if (!reduced) {
     var seen = false;
     try { seen = sessionStorage.getItem('alazazi_intro_seen') === '1'; } catch (e) {}
-    if (!seen) {
+    if (!seen || document.documentElement.classList.contains('intro-boot')) {
       try { sessionStorage.setItem('alazazi_intro_seen', '1'); } catch (e) {}
       try { window.scrollTo(0, 0); } catch (e) {}
 
-      var overlay = make('div', 'intro-overlay',
-        '<div class="intro-grid"></div>' +
-        '<div class="intro-aura one"></div>' +
-        '<div class="intro-aura two"></div>' +
-        '<div class="intro-core">' +
-          '<div class="intro-emblem">' +
-            '<svg class="intro-mark" viewBox="0 0 100 100" aria-hidden="true">' +
-              '<rect class="intro-stroke intro-frame" pathLength="1" x="6" y="6" width="88" height="88" rx="24"/>' +
-              '<path class="intro-stroke intro-arc" pathLength="1" d="M27 34 17 50l10 16M73 34l10 16-10 16"/>' +
-              '<path class="intro-stroke intro-violet" pathLength="1" d="M39 63 61 37"/>' +
-              '<circle class="intro-stroke intro-core-dot" pathLength="1" cx="50" cy="50" r="10"/>' +
-            '</svg>' +
+      if (!overlay) {
+        overlay = make('div', 'intro-overlay',
+          '<div class="intro-grid"></div>' +
+          '<div class="intro-aura one"></div>' +
+          '<div class="intro-aura two"></div>' +
+          '<div class="intro-core">' +
+            '<div class="intro-emblem">' +
+              '<svg class="intro-mark" viewBox="0 0 100 100" aria-hidden="true">' +
+                '<rect class="intro-stroke intro-frame" pathLength="1" x="6" y="6" width="88" height="88" rx="24"/>' +
+                '<path class="intro-stroke intro-arc" pathLength="1" d="M27 34 17 50l10 16M73 34l10 16-10 16"/>' +
+                '<path class="intro-stroke intro-violet" pathLength="1" d="M39 63 61 37"/>' +
+                '<circle class="intro-stroke intro-core-dot" pathLength="1" cx="50" cy="50" r="10"/>' +
+              '</svg>' +
+            '</div>' +
+            '<div class="intro-kicker">' + (isEn ? 'INITIALIZING EXPERIENCE' : 'تهيئة التجربة الرقمية') + '</div>' +
+            '<div class="intro-name">العزعزي سوفت | ALAZAZI SOFT</div>' +
+            '<div class="intro-sub">' + (isEn ? 'Crafting a precise digital environment.' : 'نبني بيئة رقمية دقيقة بمواصفات واضحة.') + '</div>' +
+            '<div class="intro-progress"><span class="intro-progress-fill"></span></div>' +
+            '<div class="intro-meta">' +
+              '<span class="intro-percent">0%</span>' +
+              '<span>ALAZAZI / SYSTEM</span>' +
+            '</div>' +
           '</div>' +
-          '<div class="intro-kicker">' + (isEn ? 'INITIALIZING EXPERIENCE' : 'تهيئة التجربة الرقمية') + '</div>' +
-          '<div class="intro-name">العزعزي سوفت | ALAZAZI SOFT</div>' +
-          '<div class="intro-sub">' + (isEn ? 'Crafting a precise digital environment.' : 'نبني بيئة رقمية دقيقة بمواصفات واضحة.') + '</div>' +
-          '<div class="intro-progress"><span class="intro-progress-fill"></span></div>' +
-          '<div class="intro-meta">' +
-            '<span class="intro-percent">0%</span>' +
-            '<span>ALAZAZI / SYSTEM</span>' +
-          '</div>' +
-        '</div>' +
-        '<div class="intro-curtain"></div>');
-      overlay.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(overlay);
+          '<div class="intro-curtain"></div>');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(overlay);
+      }
 
       var percentNode = overlay.querySelector('.intro-percent');
       var fillNode = overlay.querySelector('.intro-progress-fill');
@@ -334,9 +338,11 @@ window.ALAZAZI = window.ALAZAZI || {
       introRaf = window.requestAnimationFrame(animateIntro);
       window.setTimeout(finishIntro, 2800);
     } else {
+      if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
       window.ALAZAZI.completeIntro();
     }
   } else {
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
     window.ALAZAZI.completeIntro();
   }
 

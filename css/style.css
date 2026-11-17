@@ -2589,6 +2589,22 @@ body > footer {
   to { opacity: 0; visibility: hidden; }
 }
 
+html.intro-boot body > header,
+html.intro-boot body > main,
+html.intro-boot body > footer,
+html.intro-boot body > .skip-link {
+  visibility: hidden;
+  opacity: 0;
+}
+
+html.intro-boot,
+html.intro-boot body {
+  background: #040818;
+}
+
+.intro-overlay.intro-static { display: none; }
+html.intro-boot .intro-overlay.intro-static { display: grid; }
+
 .intro-grid {
   position: absolute;
   inset: -30%;

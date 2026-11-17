@@ -16,6 +16,8 @@
     (function () {
       'use strict';
 
+      document.documentElement.classList.add('boot-redirect');
+
       var booted = false;
       var targetUrl = null;
 
@@ -102,6 +104,8 @@
   </script>
   <link rel="stylesheet" href="css/style.css">
   <style>
+    html.boot-redirect body { background: #040818; }
+    html.boot-redirect .splash-card { display: none; }
     body {
       margin: 0;
       min-height: 100vh;

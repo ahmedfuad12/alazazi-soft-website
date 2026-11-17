@@ -14,15 +14,47 @@
   <link rel="icon" href="../assets/brand/logo-original.png" type="image/png">
   <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
   <script>
-    try {
-      var t = localStorage.getItem('alazazi_theme');
-      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
-    } catch (e) {}
+    (function () {
+      try {
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var seen = sessionStorage.getItem('alazazi_intro_seen') === '1';
+        if (!reduce && !seen) {
+          document.documentElement.classList.add('intro-boot');
+          sessionStorage.setItem('alazazi_intro_seen', '1');
+          window.setTimeout(function () { document.documentElement.classList.remove('intro-boot'); }, 4500);
+        }
+      } catch (e) {}
+      try {
+        var t = localStorage.getItem('alazazi_theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
   </script>
   <link rel="stylesheet" href="../css/style.css">
   <script src="../js/site.js" defer></script>
 </head>
 <body>
+  <div class="intro-overlay intro-static" aria-hidden="true">
+    <div class="intro-grid"></div>
+    <div class="intro-aura one"></div>
+    <div class="intro-aura two"></div>
+    <div class="intro-core">
+      <div class="intro-emblem">
+        <svg class="intro-mark" viewBox="0 0 100 100" aria-hidden="true">
+          <rect class="intro-stroke intro-frame" pathLength="1" x="6" y="6" width="88" height="88" rx="24"></rect>
+          <path class="intro-stroke intro-arc" pathLength="1" d="M27 34 17 50l10 16M73 34l10 16-10 16"></path>
+          <path class="intro-stroke intro-violet" pathLength="1" d="M39 63 61 37"></path>
+          <circle class="intro-stroke intro-core-dot" pathLength="1" cx="50" cy="50" r="10"></circle>
+        </svg>
+      </div>
+      <div class="intro-kicker">تهيئة التجربة الرقمية</div>
+      <div class="intro-name">العزعزي سوفت | ALAZAZI SOFT</div>
+      <div class="intro-sub">نبني بيئة رقمية دقيقة بمواصفات واضحة.</div>
+      <div class="intro-progress"><span class="intro-progress-fill"></span></div>
+      <div class="intro-meta"><span class="intro-percent">0%</span><span>ALAZAZI / SYSTEM</span></div>
+    </div>
+    <div class="intro-curtain"></div>
+  </div>
   <a class="skip-link" href="#main-content">الانتقال إلى المحتوى الرئيسي</a>
 
   <!-- Header -->
